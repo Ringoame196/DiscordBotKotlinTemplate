@@ -9,7 +9,7 @@ class SlashCommandInteractionEvent : ListenerAdapter() {
         when (e.name) {
             "test" -> testCommand(e)
             "stop" -> stopCommand(e)
-            // "追加コマンド" -> 追加コマンドの関数
+            // "追加コマンド" -> 追加コマンドの処理関数
             else -> e.reply(unknownMessage).queue()
         }
     }
