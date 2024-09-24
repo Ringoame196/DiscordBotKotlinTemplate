@@ -36,7 +36,16 @@ class DiscordManager {
 
         val jda = jdaBuilder.addEventListeners(SlashCommandInteractionEvent()).build() // JDAオブジェクトを取得
 
+        sendGenerateInviteUrl(jda)
+
         return jda
+    }
+
+    private fun sendGenerateInviteUrl(jda: JDA) {
+        val permissions = 8
+        val clientId = jda.selfUser.id // BOTのクライアントIDを取得
+        val url = "https://discord.com/oauth2/authorize?client_id=$clientId&scope=bot&permissions=$permissions"
+        println("BOTを鯖に入れるURL：$url")
     }
 
     fun addCommands(jda: JDA, commands:List<SlashCommandData>?) {
