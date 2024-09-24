@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.entities.Activity
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData
+import org.example.events.SlashCommandInteractionEvent
 import java.io.File
 
 class DiscordManager {
@@ -20,7 +21,7 @@ class DiscordManager {
         return tokenFile.readText()
     }
 
-    fun bootBot(token:String, activity: Activity? = null): JDABuilder? {
+    fun bootBot(token:String, activity: Activity? = null): JDA? {
         if (token == "") {
             val message = "tokenが未設定のため 起動を停止します"
             println(message)
@@ -32,7 +33,10 @@ class DiscordManager {
         if (activity != null) {
             jdaBuilder.setActivity(activity)
         }
-        return jdaBuilder
+
+        val jda = jdaBuilder.addEventListeners(SlashCommandInteractionEvent()).build() // JDAオブジェクトを取得
+
+        return jda
     }
 
     fun addCommands(jda: JDA, commands:List<SlashCommandData>?) {
